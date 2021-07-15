@@ -173,3 +173,63 @@ See [running in docker](gfootball/doc/docker.md) for details (just override the 
 # 使用stable-baselines3测试
 ## PPO算法测试
 my_ppo.py
+
+## level，Google的足球学院的场景翻译
+optional arguments:
+  -h, --help            show this help message and exit
+  --log_dir LOG_DIR     日志目录
+  --tensorboard
+  --level LEVEL         定义要解决的问题，要使用的游戏场景，一共11种。 academy_empty_goal_close ： 空门射门情景
+  --state STATE         extracted 或者extracted_stacked
+  --reward_experiment REWARD_EXPERIMENT
+                        奖励的方式，"scoring" 或者 "scoring,checkpoints"
+  --num_timesteps NUM_TIMESTEPS
+                        训练的时间步数
+  --nsteps NSTEPS       batch size 是 nsteps
+  --noptepochs NOPTEPOCHS
+                        每个epoch更新
+  --dump_scores         打印分数
+  --dump_full_episodes  每个epoch打印
+  --render              是否显示动画
+  --debug               print debug info
+
+## 11种游戏场景
+11_vs_11_competition   # 11人对11人的竞技
+11_vs_11_easy_stochastic   # 11人对11人的简单随机
+11_vs_11_hard_stochastic  # 11人对11人的困难随机
+11_vs_11_kaggle     #11人对11人的kaggle
+11_vs_11_stochastic  # 11人对11人的随机
+1_vs_1_easy    # 1v1简单
+5_vs_5          # 5v5
+academy_3_vs_1_with_keeper      #3人对1个守门员
+academy_corner          #角球
+academy_counterattack_easy        #进攻被防守住容易
+academy_counterattack_hard    #进攻被防守住困难
+academy_empty_goal            #空门射门
+academy_empty_goal_close      #近距离空门射门
+academy_pass_and_shoot_with_keeper    #传球和射门有守门员
+academy_run_pass_and_shoot_with_keeper   #跑传球和射门有守门员
+academy_run_to_score
+academy_run_to_score_with_keeper
+academy_single_goal_versus_lazy
+
+
+# 正常玩游戏模式
+python3 -m gfootball.play_game --action_set=full
+# 玩进攻被防守住
+python3 -m gfootball.play_game --action_set=full --level academy_counterattack_easy
+python3 -m gfootball.play_game --action_set=full --level academy_run_pass_and_shoot_with_keeper
+
+## play_game脚本的参数的帮助
+```angular2html
+  --action_set: <default|full>: 可以使用的动作集，full表示可以使用所有动作
+    (default: 'default')
+  --level: 玩哪个level，即哪个情景
+    (default: '')
+  --players: 冒号隔开玩家，默认是左侧玩家
+    (default: 'keyboard:left_players=1')
+  --[no]real_time: 如果是这样，环境将放慢，所以人可以玩游戏了。
+    (default: 'true')
+  --[no]render: 渲染画面
+    (default: 'true')
+```

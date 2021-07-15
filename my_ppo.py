@@ -4,17 +4,19 @@
 # @File  : my_ppo.py
 # @Author: johnson
 # @Desc  : 使用stable-baseline3 的PPO算法
-
+import os
+import time
 import gfootball.env as football_env
 import argparse
 from stable_baselines3 import PPO
 
 def model_config(parser):
-    parser.add_argument('--level', default='academy_empty_goal_close', type=str, help='定义要解决的问题，要使用的游戏场景，一共11种')
+    parser.add_argument('--level', default='academy_counterattack_easy', type=str, help='定义要解决的问题，要使用的游戏场景，一共11种')
     parser.add_argument('--state', default='extracted_stacked', type=str, help='extracted 或者extracted_stacked')
     parser.add_argument('--reward_experiment', default='scoring', type=str, help='奖励的方式，"scoring" 或者 "scoring,checkpoints"')
-    parser.add_argument('--num_timesteps', default=20000, type=int, help='训练的时间步数')
+    parser.add_argument('--num_timesteps', default=10000, type=int, help='训练的时间步数，一般可以200万个step')
     parser.add_argument('--nsteps', default=128, type=int, help='batch size 是 nsteps')
+    parser.add_argument('--output_path', default='output', type=str, help='模型保存的路径,模型名称根据时间自动命名')
     return parser
 
 def data_config(parser):
@@ -36,6 +38,8 @@ if __name__ == '__main__':
     parser = model_config(parser)
     parser = train_config(parser)
     args = parser.parse_args()
+    #模型保存的位置/output/0714095907
+    save_path = os.path.join(args.output_path, time.strftime("%m%d%H%M%S",time.localtime()))
     env = football_env.create_environment(
         env_name=args.level, stacked=('stacked' in args.state),
         rewards=args.reward_experiment,
@@ -47,8 +51,13 @@ if __name__ == '__main__':
     #模型的配置
     model = PPO("MlpPolicy", env, verbose=1)
     model.learn(total_timesteps=args.num_timesteps)
+    #保存训练好的模型
+    model.save(save_path)
+    #环境重置，方便测试模型
     obs = env.reset()
-    for i in range(1000):
+    # 测试模型
+    print(f"开始测试模型效果：")
+    for i in range(500):
         action, _states = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)
         env.render()

@@ -29,14 +29,11 @@ from gfootball.env import football_env
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('players', 'keyboard:left_players=1',
-                    'Semicolon separated list of players, single keyboard '
-                    'player on the left by default')
-flags.DEFINE_string('level', '', 'Level to play')
-flags.DEFINE_enum('action_set', 'default', ['default', 'full'], 'Action set')
-flags.DEFINE_bool('real_time', True,
-                  'If true, environment will slow down so humans can play.')
-flags.DEFINE_bool('render', True, 'Whether to do game rendering.')
+flags.DEFINE_string('players', 'keyboard:left_players=1','冒号隔开玩家，默认是左侧玩家')
+flags.DEFINE_string('level', '', '玩哪个level，即哪个情景')
+flags.DEFINE_enum('action_set', 'default', ['default', 'full'], '可以使用的动作集，full表示可以使用所有动作')
+flags.DEFINE_bool('real_time', True, '如果是这样，环境将放慢，所以人可以玩游戏了。')
+flags.DEFINE_bool('render', True, '渲染画面')
 
 
 def main(_):

@@ -1,14 +1,12 @@
 # Google Research Football
 
-This repository contains an RL environment based on open-source game Gameplay
-Football. <br> It was created by the Google Brain team for research purposes.
+这个资源库包含一个基于开源游戏Gameplay Football的RL环境。它是由谷歌大脑团队为研究目的创建的。
 
-Useful links:
-
-* __(NEW!)__ [GRF Kaggle competition](https://www.kaggle.com/c/google-football) - take part in the competition playing games against others, win prizes and become the GRF Champion!
-* [Run in Colab](https://colab.research.google.com/github/google-research/football/blob/master/gfootball/colabs/gfootball_example_from_prebuild.ipynb) - start training in less that 2 minutes.
-* [Google Research Football Paper](https://arxiv.org/abs/1907.11180)
-* [GoogleAI blog post](https://ai.googleblog.com/2019/06/introducing-google-research-football.html)
+有用的链接：
+* __(NEW!)__ [GRF Kaggle competition](https://www.kaggle.com/c/google-football) - 参加比赛，与他人玩游戏，赢得奖品，成为GRF英雄
+* [Run in Colab](https://colab.research.google.com/github/google-research/football/blob/master/gfootball/colabs/gfootball_example_from_prebuild.ipynb) - 快速开始训练教程
+* [Google Research Football Paper](https://arxiv.org/abs/1907.11180)   论文
+* [GoogleAI blog post](https://ai.googleblog.com/2019/06/introducing-google-research-football.html)  博客
 * [Google Research Football on Cloud](https://towardsdatascience.com/reproducing-google-research-football-rl-results-ac75cf17190e)
 * [Mailing List](https://groups.google.com/forum/#!forum/google-research-football) - please use it for communication with us (comments / suggestions / feature ideas)
 
@@ -21,20 +19,20 @@ We'd like to thank Bastiaan Konings Schuiling, who authored and open-sourced the
 
 ## Quick Start
 
-### In colab
+### Colab快速教程
 
-Open our example [Colab](https://colab.research.google.com/github/google-research/football/blob/master/gfootball/colabs/gfootball_example_from_prebuild.ipynb), that will allow you to start training your model in less than 2 minutes.
+详见 [Colab](https://colab.research.google.com/github/google-research/football/blob/master/gfootball/colabs/gfootball_example_from_prebuild.ipynb),
 
-This method doesn't support game rendering on screen - if you want to see the game running, please use the method below.
+这种方法不支持游戏在屏幕上的渲染--如果你想看到游戏的运行，请使用下面的方法。
 
-### Using Docker
+### Docker方法
 
 This is the recommended way to avoid incompatible package versions.
 Instructions are available [here](gfootball/doc/docker.md).
 
-### On your computer
+### 本地方法
 
-#### 1. Install required packages
+#### 1. 依赖包
 #### Linux
 ```
 sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \
@@ -45,19 +43,19 @@ python3 -m pip install --upgrade pip setuptools psutil
 ```
 
 #### Mac OS X
-First install [brew](https://brew.sh/). It should automatically install Command Line Tools.
+First install [brew](https://brew.sh/). 安装brew
 Next install required packages:
 
 ```
 brew install git python3 cmake sdl2 sdl2_image sdl2_ttf sdl2_gfx boost boost-python3
 ```
 
-#### 2a. From PyPi package
+#### 2a. 使用pip安装
 ```
 python3 -m pip install gfootball
 ```
 
-#### 2b. Installing from sources using GitHub repository
+#### 2b. 使用源码安装
 
 ```
 git clone https://github.com/google-research/football.git
@@ -71,18 +69,18 @@ python3 -m venv football-env
 source football-env/bin/activate
 ```
 
-The last step is to build the environment:
+安装，会自动编译C++环境，耗时几分钟
 
 ```
 python3 -m pip install .
 ```
-This command can run for a couple of minutes, as it compiles the C++ environment in the background.
 
-#### 3. Time to play!
+
+#### 3. 游戏时间
 ```
 python3 -m gfootball.play_game --action_set=full
 ```
-Make sure to check out the [keyboard mappings](#keyboard-mappings).
+确保已经键盘映射 [keyboard mappings](#keyboard-mappings).
 To quit the game press Ctrl+C in the terminal.
 
 # Contents #
@@ -104,7 +102,7 @@ To quit the game press Ctrl+C in the terminal.
 ## Training agents to play GRF
 
 ### Run training
-In order to run TF training, you need to install additional dependencies
+如果使用TF TensorFlow训练，需要额外配置
 
 - Update PIP, so that tensorflow 1.15 is available: `python3 -m pip install --upgrade pip setuptools`
 - TensorFlow: `python3 -m pip install tensorflow==1.15.*` or
@@ -116,63 +114,57 @@ In order to run TF training, you need to install additional dependencies
 
 Then:
 
-- To run example PPO experiment on `academy_empty_goal` scenario, run
+- 运行PPO实验在场景`academy_empty_goal` 下, run
   `python3 -m gfootball.examples.run_ppo2 --level=academy_empty_goal_close`
 - To run on `academy_pass_and_shoot_with_keeper` scenario, run
   `python3 -m gfootball.examples.run_ppo2 --level=academy_pass_and_shoot_with_keeper`
 
-In order to train with nice replays being saved, run
+为了训练被保存的replay，运行
 `python3 -m gfootball.examples.run_ppo2 --dump_full_episodes=True --render=True`
 
-In order to reproduce PPO results from the paper, please refer to:
+为了再现论文中的PPO结果，请参考。
 
 - gfootball/examples/repro_checkpoint_easy.sh
 - gfootball/examples/repro_scoring_easy.sh
 
 ## Playing the game
-
-Please note that playing the game is implemented through an environment, so human-controlled players use the same interface as the agents. One important implication is that there is a single action per 100 ms reported to the environment, which might cause a lag effect when playing.
-
+请注意，玩游戏是通过环境实现的，所以人类控制的玩家使用与agent相同的界面。一个重要的含义是，每100毫秒有一个动作报告给环境，这可能会导致游戏时的滞后效应。
 
 ### Keyboard mappings
-The game defines following keyboard mapping (for the `keyboard` player type):
+游戏定义了以下键盘映射（对于“键盘”player类型）：
 
-* `ARROW UP` - run to the top.
-* `ARROW DOWN` - run to the bottom.
-* `ARROW LEFT` - run to the left.
-* `ARROW RIGHT` - run to the right.
-* `S` - short pass in the attack mode, pressure in the defense mode.
-* `A` - high pass in the attack mode, sliding in the defense mode.
-* `D` - shot in the the attack mode, team pressure in the defense mode.
-* `W` - long pass in the the attack mode, goalkeeper pressure in the defense mode.
-* `Q` - switch the active player in the defense mode.
-* `C` - dribble in the attack mode.
-* `E` - sprint.
+* `ARROW UP` - 向上跑
+* `ARROW DOWN` - 向下跑
+* `ARROW LEFT` - 向左跑
+* `ARROW RIGHT` - 向右跑
+* `S` - 在进攻模式下短传，防御模式下用于施压。
+* `A` - 在进攻模式下高传，防御模式下用于滑铲。
+* `D` - 在进攻模式下射门，防御模式下用于组队施压。
+* `W` - 在进攻模式下长传，防御模式下用于守门员施压。
+* `Q` - 防守模式用于切换激活的队员
+* `C` - 在进攻模式下盘球
+* `E` - 冲刺.
 
 ### Play vs built-in AI
-Run `python3 -m gfootball.play_game --action_set=full`. By default, it starts
-the base scenario and the left player is controlled by the keyboard. Different
-types of players are supported (gamepad, external bots, agents...). For possible
-options run `python3 -m gfootball.play_game -helpfull`.
+运行`python3 -m gfootball.play_game --action_set=full`。默认情况下，它启动基本场景，左侧球员由键盘控制。
+支持不同类型的球员（游戏手柄、外部机器人、agent...）。对于可能的选项，运行`python3 -m gfootball.play_game -helpfull`。
 
 ### Play vs pre-trained agent
 
-In particular, one can play against agent trained with `run_ppo2` script with
-the following command (notice no action_set flag, as PPO agent uses default
-action set):
+特别是，人们可以用以下命令与用`run_ppo2`脚本训练的agent进行比赛（注意没有action_set标志，因为PPOagent使用默认动作集）。
 `python3 -m gfootball.play_game --players "keyboard:left_players=1;ppo2_cnn:right_players=1,checkpoint=$YOUR_PATH"`
 
 ### Trained checkpoints
-We provide trained PPO checkpoints for the following scenarios:
-
+我们为以下方案提供了受过训练的PPOcheckpoint：
   - [11_vs_11_easy_stochastic](https://storage.googleapis.com/gfootball/11_vs_11_easy_stochastic_v2),
   - [academy_run_to_score_with_keeper](https://storage.googleapis.com/gfootball/academy_run_to_score_with_keeper_v2).
 
-In order to see the checkpoints playing, run
+为了看到checkpoint玩游戏，运行
 `python3 -m gfootball.play_game --players "ppo2_cnn:left_players=1,policy=gfootball_impala_cnn,checkpoint=$CHECKPOINT" --level=$LEVEL`,
-where `$CHECKPOINT` is the path to downloaded checkpoint. Please note that the checkpoints were trained with Tensorflow 1.15 version. Using 
-different Tensorflow version may result in errors. The easiest way to run these checkpoints is through provided `Dockerfile_examples` image.
+其中`$CHECKPOINT`是下载的checkpoint的路径。请注意，这些checkpoint是用Tensorflow 1.15版本训练的。
+使用不同的Tensorflow版本可能会导致错误。运行这些checkpoint的最简单方法是通过提供的`Dockerfile_examples`图像。
+
 See [running in docker](gfootball/doc/docker.md) for details (just override the default Docker definition with `-f Dockerfile_examples` parameter).
 
-In order to train against a checkpoint, you can pass 'extra_players' argument to create_environment function.
-For example extra_players='ppo2_cnn:right_players=1,policy=gfootball_impala_cnn,checkpoint=$CHECKPOINT'.
+为了针对checkpoint进行训练，你可以向create_environment函数传递'extra_players'参数。
+例如，extra_players='ppo2_cnn:right_players=1,policy=gfootball_impala_cnn,checkpoint=$CHECKPOINT'。

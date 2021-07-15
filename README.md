@@ -215,9 +215,13 @@ academy_single_goal_versus_lazy
 
 
 # 正常玩游戏模式
+玩11vs11人游戏模式
 python3 -m gfootball.play_game --action_set=full
-# 玩进攻被防守住
+
+玩进攻被防守住模式
 python3 -m gfootball.play_game --action_set=full --level academy_counterattack_easy
+
+玩传球和射门模式
 python3 -m gfootball.play_game --action_set=full --level academy_run_pass_and_shoot_with_keeper
 
 ## play_game脚本的参数的帮助

@@ -63,6 +63,5 @@ def main(_):
     env.write_dump('shutdown')
     exit(1)
 
-
 if __name__ == '__main__':
   app.run(main)

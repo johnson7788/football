@@ -38,7 +38,7 @@ if __name__ == '__main__':
     parser = model_config(parser)
     parser = train_config(parser)
     args = parser.parse_args()
-    #模型保存的位置/output/0714095907
+    #模型保存的位置/output/0714095907.zip
     save_path = os.path.join(args.output_path, time.strftime("%m%d%H%M%S",time.localtime()))
     env = football_env.create_environment(
         env_name=args.level, stacked=('stacked' in args.state),

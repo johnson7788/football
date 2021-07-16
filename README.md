@@ -169,7 +169,6 @@ See [running in docker](gfootball/doc/docker.md) for details (just override the 
 例如，extra_players='ppo2_cnn:right_players=1,policy=gfootball_impala_cnn,checkpoint=$CHECKPOINT'。
 
 
-
 # 使用stable-baselines3测试
 ## PPO算法测试
 my_ppo.py
@@ -210,6 +209,7 @@ optional arguments:
 
 
 ## 18种游戏场景
+```
 11_vs_11_competition   # 11人对11人的竞技
 11_vs_11_easy_stochastic   # 11人对11人的简单随机
 11_vs_11_hard_stochastic  # 11人对11人的困难随机
@@ -228,12 +228,14 @@ academy_run_pass_and_shoot_with_keeper   #跑传球和射门有守门员
 academy_run_to_score
 academy_run_to_score_with_keeper
 academy_single_goal_versus_lazy
+```
 
 
 # 正常玩游戏模式
 玩11vs11人游戏模式
 python3 -m gfootball.play_game --action_set=full
 
+玩5v5游戏
 python3 -m gfootball.play_game --action_set=full --level 5_vs_5
 
 玩进攻被防守住模式

@@ -192,8 +192,24 @@ optional arguments:
   --dump_full_episodes  每个epoch打印
   --render              是否显示动画
   --debug               print debug info
+其它可选参数, 通过other_config_options给定
+        'action_set': 'default',
+        'custom_display_stats': None,
+        'display_game_stats': True,
+        'dump_full_episodes': False,
+        'dump_scores': False,
+        'players': ['agent:left_players=1'],
+        'level': '11_vs_11_stochastic',
+        'physics_steps_per_frame': 10,
+        'render_resolution_x': 1280,
+        'real_time': False,
+        'tracesdir': '/tmp/dumps',
+        'video_format': 'avi',
+        'video_quality_level': 0,  # 0 - low, 1 - medium, 2 - high
+        'write_video': False
 
-## 11种游戏场景
+
+## 18种游戏场景
 11_vs_11_competition   # 11人对11人的竞技
 11_vs_11_easy_stochastic   # 11人对11人的简单随机
 11_vs_11_hard_stochastic  # 11人对11人的困难随机
@@ -217,6 +233,8 @@ academy_single_goal_versus_lazy
 # 正常玩游戏模式
 玩11vs11人游戏模式
 python3 -m gfootball.play_game --action_set=full
+
+python3 -m gfootball.play_game --action_set=full --level 5_vs_5
 
 玩进攻被防守住模式
 python3 -m gfootball.play_game --action_set=full --level academy_counterattack_easy

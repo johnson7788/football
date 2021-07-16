@@ -174,6 +174,7 @@ See [running in docker](gfootball/doc/docker.md) for details (just override the 
 my_ppo.py
 
 ## level，Google的足球学院的场景翻译
+```
 optional arguments:
   -h, --help            show this help message and exit
   --log_dir LOG_DIR     日志目录
@@ -192,21 +193,21 @@ optional arguments:
   --render              是否显示动画
   --debug               print debug info
 其它可选参数, 通过other_config_options给定
-        'action_set': 'default',
-        'custom_display_stats': None,
-        'display_game_stats': True,
-        'dump_full_episodes': False,
-        'dump_scores': False,
-        'players': ['agent:left_players=1'],
-        'level': '11_vs_11_stochastic',
-        'physics_steps_per_frame': 10,
-        'render_resolution_x': 1280,
-        'real_time': False,
-        'tracesdir': '/tmp/dumps',
-        'video_format': 'avi',
-        'video_quality_level': 0,  # 0 - low, 1 - medium, 2 - high
-        'write_video': False
-
+'action_set': 'default',
+'custom_display_stats': None,
+'display_game_stats': True,
+'dump_full_episodes': False,
+'dump_scores': False,
+'players': ['agent:left_players=1'],
+'level': '11_vs_11_stochastic',
+'physics_steps_per_frame': 10,
+'render_resolution_x': 1280,
+'real_time': False,
+'tracesdir': '/tmp/dumps',
+'video_format': 'avi',
+'video_quality_level': 0,  # 0 - low, 1 - medium, 2 - high
+'write_video': False
+```
 
 ## 18种游戏场景
 ```

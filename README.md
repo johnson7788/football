@@ -101,7 +101,7 @@ To quit the game press Ctrl+C in the terminal.
 
 ## Training agents to play GRF
 
-### 开始训练， 古老的TF1.1
+### 开始训练， 古老的TF1.1， 不推荐，baselines也很老，不推荐，推荐后面的stable-baselines3测试
 examples中的代码使用的TF， 如果使用TF TensorFlow训练，需要额外配置
 
 - Update PIP, so that tensorflow 1.15 is available: `python3 -m pip install --upgrade pip setuptools`
@@ -169,7 +169,7 @@ See [running in docker](gfootball/doc/docker.md) for details (just override the 
 例如，extra_players='ppo2_cnn:right_players=1,policy=gfootball_impala_cnn,checkpoint=$CHECKPOINT'。
 
 
-# 使用stable-baselines3测试
+# 使用stable-baselines3测试, 
 ## PPO算法测试
 my_ppo.py
 

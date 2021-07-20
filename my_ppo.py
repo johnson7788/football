@@ -21,7 +21,7 @@ levels = ['11_vs_11_competition','11_vs_11_easy_stochastic','11_vs_11_hard_stoch
 def model_config(parser):
     parser.add_argument('--level', default='5_vs_5', type=str, choices=levels, help='定义要解决的问题，要使用的游戏场景，一共11种')
     parser.add_argument('--state', default='extracted_stacked', type=str, help='extracted 或者extracted_stacked')
-    parser.add_argument('--reward_experiment', default='scoring', type=str, help='奖励的方式，"scoring" 或者 "scoring,checkpoints"')
+    parser.add_argument('--reward_experiment', default='scoring,checkpoints', type=str, help='奖励的方式，"scoring" 或者 "scoring,checkpoints, 注意奖励方式，如果踢全场，最好用2种结合"')
     parser.add_argument('--num_timesteps', default=20000000, type=int, help='训练的时间步数，一般可以200万个step')
     parser.add_argument('--nsteps', default=128, type=int, help='batch size 是 nsteps')
     parser.add_argument('--output_path', default='output', type=str, help='模型保存的路径,模型名称根据时间自动命名,默认为output')

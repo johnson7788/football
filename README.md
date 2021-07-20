@@ -173,25 +173,42 @@ See [running in docker](gfootball/doc/docker.md) for details (just override the 
 ## PPO算法测试
 my_ppo.py
 
+## 继续训练
+```
+python my_ppo.py --do_train --initial_checkpoint output/ppo_model_20000000_steps.zip --num_timesteps 1000000
+```
+
 ## level，Google的足球学院的场景翻译
 ```
 optional arguments:
   -h, --help            show this help message and exit
   --log_dir LOG_DIR     日志目录
   --tensorboard
-  --level LEVEL         定义要解决的问题，要使用的游戏场景，一共11种。 academy_empty_goal_close ： 空门射门情景
+  --level {11_vs_11_competition,11_vs_11_easy_stochastic,11_vs_11_hard_stochastic,11_vs_11_kaggle,11_vs_11_stochastic,1_vs_1_easy,5_vs_5,academy_3_vs_1_with_keeper,academy_corner,academy_counterattack_easy,academy_counterattack_hard,academy_empty_goal,academy_empty_goal_close,academy_pass_and_shoot_with_keeper,academy_run_pass_and_shoot_with_keeper,academy_run_to_score,academy_run_to_score_with_keeper,academy_single_goal_versus_lazy}
+                        定义要解决的问题，要使用的游戏场景，一共11种
   --state STATE         extracted 或者extracted_stacked
   --reward_experiment REWARD_EXPERIMENT
                         奖励的方式，"scoring" 或者 "scoring,checkpoints"
   --num_timesteps NUM_TIMESTEPS
-                        训练的时间步数
+                        训练的时间步数，一般可以200万个step
   --nsteps NSTEPS       batch size 是 nsteps
-  --noptepochs NOPTEPOCHS
-                        每个epoch更新
+  --output_path OUTPUT_PATH
+                        模型保存的路径,模型名称根据时间自动命名
+  --model_save_prefix MODEL_SAVE_PREFIX
+                        模型保存的名称的前缀
+  --model_save_frequency MODEL_SAVE_FREQUENCY
+                        每所少个step保存一次模型
+  --do_train            训练并测试模型
+  --do_eval             只测试模型，需要给出要加载的模型checkpoint
+  --load_checkpoint LOAD_CHECKPOINT
+                        只测试模型，需要给出要加载的模型checkpoint
+  --initial_checkpoint INITIAL_CHECKPOINT
+                        训练时，使用哪个模型继续训练
   --dump_scores         打印分数
   --dump_full_episodes  每个epoch打印
   --render              是否显示动画
   --debug               print debug info
+
 其它可选参数, 通过other_config_options给定
 'action_set': 'default',
 'custom_display_stats': None,

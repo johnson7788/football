@@ -24,9 +24,9 @@ def model_config(parser):
     parser.add_argument('--reward_experiment', default='scoring', type=str, help='奖励的方式，"scoring" 或者 "scoring,checkpoints"')
     parser.add_argument('--num_timesteps', default=20000000, type=int, help='训练的时间步数，一般可以200万个step')
     parser.add_argument('--nsteps', default=128, type=int, help='batch size 是 nsteps')
-    parser.add_argument('--output_path', default='output', type=str, help='模型保存的路径,模型名称根据时间自动命名')
+    parser.add_argument('--output_path', default='output', type=str, help='模型保存的路径,模型名称根据时间自动命名,默认为output')
     parser.add_argument('--model_save_prefix', default='ppo_model', type=str, help='模型保存的名称的前缀')
-    parser.add_argument('--model_save_frequency', default=100000, type=int, help='每所少个step保存一次模型')
+    parser.add_argument('--model_save_frequency', default=100000, type=int, help='每所少个step保存一次模型，默认为100000')
     return parser
 
 def data_config(parser):
@@ -37,8 +37,8 @@ def data_config(parser):
 def train_config(parser):
     parser.add_argument('--do_train', action='store_true', help="训练并测试模型")
     parser.add_argument('--do_eval', action='store_true', help="只测试模型，需要给出要加载的模型checkpoint")
-    parser.add_argument('--load_checkpoint', default='output/academy_counterattack_easy_200w_PPO.zip', type=str, help="只测试模型，需要给出要加载的模型checkpoint")
-    parser.add_argument('--noptepochs', default=4, type=int, help='每个epoch更新')
+    parser.add_argument('--load_checkpoint', default='output/ppo_model_20000000_steps.zip', type=str, help="只测试模型，需要给出要加载的模型checkpoint")
+    parser.add_argument('--initial_checkpoint', default='', type=str, help="训练时，使用哪个模型继续训练，默认为空")
     parser.add_argument('--dump_scores', action='store_true', default=True, help="打印分数")
     parser.add_argument('--dump_full_episodes', action='store_true', default=True, help="每个epoch打印")
     parser.add_argument('--render', action='store_true',default=False, help="是否显示动画")
@@ -67,6 +67,8 @@ if __name__ == '__main__':
         other_config_options=other_config_options,)
     #模型的配置
     model = PPO("MlpPolicy", env, verbose=1)
+    if args.initial_checkpoint:
+        model.load(args.initial_checkpoint)
     if args.do_train:
         print(f"开始训练，会耗时较长, 即将训练{args.num_timesteps}个step,模型保存频率为{args.model_save_frequency}")
         checkpoint_callback = CheckpointCallback(save_freq=args.model_save_frequency, save_path=args.output_path,

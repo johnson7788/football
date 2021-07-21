@@ -275,3 +275,9 @@ python3 -m gfootball.play_game --action_set=full --level academy_run_pass_and_sh
   --[no]render: 渲染画面
     (default: 'true')
 ```
+
+## 更多文档帮助
+gfootball/doc
+
+## kaggle 竞赛中的代码
+https://www.kaggle.com/c/google-football/code

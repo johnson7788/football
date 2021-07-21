@@ -39,8 +39,8 @@ def train_config(parser):
     parser.add_argument('--do_eval', action='store_true', help="只测试模型，需要给出要加载的模型checkpoint")
     parser.add_argument('--load_checkpoint', default='output/ppo_model_20000000_steps.zip', type=str, help="只测试模型，需要给出要加载的模型checkpoint")
     parser.add_argument('--initial_checkpoint', default='', type=str, help="训练时，使用哪个模型继续训练，默认为空")
-    parser.add_argument('--dump_scores', action='store_true', default=True, help="打印分数")
-    parser.add_argument('--dump_full_episodes', action='store_true', default=True, help="每个epoch打印")
+    parser.add_argument('--dump_scores', action='store_true', default=True, help="保存记录分数的样本轨迹。")
+    parser.add_argument('--dump_full_episodes', action='store_true', default=True, help="记录每个整个episode的轨迹。")
     parser.add_argument('--render', action='store_true',default=False, help="是否显示动画")
     parser.add_argument('--debug', action='store_true', help="print debug info")
     return parser

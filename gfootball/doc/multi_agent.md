@@ -1,22 +1,18 @@
 # Multiagent support #
 
-Using play_game script (see 'Playing game yourself' section for details)
-it is possible to set up a game played between multiple agents.
-`players` command line parameter is a comma-separated lists of players for both teams.
-For example, to play yourself using a gamepad with two lazy bots on your team
-against three bots you can run
+使用play_game脚本（详见 "自己玩游戏 "部分），可以设置多个agent之间的游戏。
+`players`命令行参数是一个以逗号分隔的两队队员名单。
+例如，要用gamepad自己玩，你的团队中有两个懒惰的机器人，对三个机器人，你可以运行
 `python3 -m gfootball.play_game --players=gamepad:left_players=1;lazy:left_players=2;bot:right_players=1;bot:right_players=1;bot:right_players=1`.
 
-Notice the use of `left_players=2` for the lazy player, bot player does not support it.
+注意到懒人玩家使用了`left_players=2`，机器人玩家不支持它。
 
-You can implement your own player controlling multiple players by adding its implementation
-to the env/players directory (no other changes are needed).
-Have a look at existing players code for an example implementation.
+你可以通过在env/players目录下添加其实现来实现你自己的控制多个玩家的player（不需要其他改动）。
+请看一下现有的player代码，以获得一个实现的例子。
 
-To train a policy controlling multiple players, one has to do the following:
-- pass `number_of_players_agent_controls` to the 'create_environment' defining how many players you want to control
-- instead of calling '.step' function with a single action, call it with an array of actions, one action per player
+要训练一个控制多个球员的策略，必须做以下工作。
+- 将 "number_of_players_agent_controls "传递给 "create_environment"，定义你要控制的球员数量。
+- 不要用一个动作调用'.step'函数，而是用一个动作数组调用，每个玩家一个动作
 
-It is up to the caller to unpack/postprocess it in a desirable way.
-A simple example of training multi-agent can be found in examples/run_multiagent_rllib.py
-
+这取决于调用者是否以理想的方式解包/后处理它。
+在examples/run_multiagent_rllib.py中可以找到一个训练多Agent的简单例子。

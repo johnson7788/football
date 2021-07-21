@@ -1,10 +1,10 @@
 # Scenarios #
-We provide two sets of scenarios/levels:
+我们提供两组场景/级别：
 
 * Football Benchmarks
-   * __11_vs_11_stochastic__ A full 90 minutes football game (medium difficulty)
-   * __11_vs_11_easy_stochastic__ A full 90 minutes football game (easy difficulty)
-   * __11_vs_11_hard_stochastic__ A full 90 minutes football game (hard difficulty)
+   * __11_vs_11_stochastic__ 完整的90分钟足球比赛（中等困难）
+   * __11_vs_11_easy_stochastic__ 完整90分钟足球比赛（简单）
+   * __11_vs_11_hard_stochastic__ 完整的90分钟足球比赛（困难）
 
 * Football Academy - with a total of 11 scenarios
    * __academy_empty_goal_close__ - Our player starts inside the box with the ball,

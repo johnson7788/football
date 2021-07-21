@@ -3,14 +3,14 @@
 
 ## Raw observations
 
-Environment exposes following `raw` observations:
+环境暴露在raw`观察中: 
 
 - Ball information:
-    - `ball` - [x, y, z] position of the ball.
-    - `ball_direction` - [x, y, z] ball movement vector.
-    - `ball_rotation` - [x, y, z] rotation angles in radians.
+    - `ball` - [x, y, z] 球的位置.
+    - `ball_direction` - [x, y, z] 球运动矢量.
+    - `ball_rotation` - [x, y, z] 弧度的旋转角度.
     - `ball_owned_team` - {-1, 0, 1}, -1 = ball not owned, 0 = left team, 1 = right team.
-    - `ball_owned_player` - {0..N-1} integer denoting index of the player owning the ball.
+    - `ball_owned_player` - {0..N-1} 整数，表示拥有球的玩家的序号.
 - Left team:
     - `left_team` - N-elements vector with [x, y] positions of players.
     - `left_team_direction` - N-elements vector with [x, y] movement vectors of players.
@@ -144,7 +144,7 @@ representation in the case of only one player being controlled.
 
 ### Default action set
 
-The default action set consists of 19 actions:
+默认包含19种动作：
 
 *   Idle actions
 

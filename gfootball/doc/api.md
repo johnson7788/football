@@ -1,29 +1,24 @@
 # Environment API #
-Google Research Football environment follows GYM API design:
+谷歌研究足球环境遵循gym API设计:
 
-* `reset()` - resets environment to the initial state.
-* `observation, reward, done, info = step(action)` - performs a single step.
-* `observation = observation()` - returns current observations.
-* `render(mode=human|rgb_array)` - can be called at any time to enable rendering.
-  The main difference from the GYM API is that calling `render` enables
-  continuous rendering of the episode (no need to call the method on each step).
-  Calling `render` enables pixels to be available in the observation.
-  Note - rendering slows down `step` method significantly.
-* `disable_render()` - disables rendering previously enabled with `render` call.
-* `close()` - releases environment object.
+* `reset()` - 将环境重置为初始状态.
+* `observation, reward, done, info = step(action)` - 执行单一步骤.
+* `observation = observation()` - 返回当前观察.
+* `render(mode=human|rgb_array)` - 可以随时调用以启用渲染.
+  与GYM API的主要区别是，调用`render`可以连续渲染episode（不需要在每一步都调用该方法）。
+  调用`render`可以使像素在观察中可用。
+  注意 - rendering 会大大减慢`step`方法的速度。
+* `disable_render()` - 禁用以前启用的渲染“render”。
+* `close()` - 关闭.
 
-On top of the standard API, we provide a number of additional methods:
+在标准API的基础上，我们提供了一些额外的方法:
 
-* `state = get_state()` - provides a current environment's state containing
-  all values affecting environment's behavior (random number generator state,
-  current players' mental model, physics etc.). The state returned is an opaque
-  object to be consumed by `set_state(state)` API method in order to restore
-  environment's state from the past.
-* `set_state(state)` - restores environment's state to previously snapshoted
-  state using `get_state()`. This method can be used to check outcome of executing
-  sequences of different actions starting at a fixed state.
-* `write_dump(name)` - writes a dump of the current scenario to the disk. Dump
-  contains a snapshot of observations for each step of the episode and can be used
-  to analyze episode's trajectory offline.
-
+* `state = get_state()` - 
+  提供一个当前环境的状态，包含所有影响环境行为的值（随机数生成器的状态，当前玩家的心理模型，物理学等）。
+  返回的状态是一个不透明的对象，可以被`set_state(state)` API方法使用，以恢复环境过去的状态。  
+* `set_state(state)` - 
+  使用`get_state()`将环境的状态恢复到之前的快照状态。
+  这个方法可以用来检查从一个固定状态开始执行不同动作序列的结果。
+* `write_dump(name)` -  将当前场景的写到磁盘上。包含episode中每一步的观测快照，可以用来离线分析episode的轨迹。
+  
 For example API usage have a look at [play_game.py](../play_game.py).

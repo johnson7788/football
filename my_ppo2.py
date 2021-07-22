@@ -34,7 +34,7 @@ from stable_baselines3.common.callbacks import EvalCallback
 class FootballGym(gym.Env):
     spec = None
     metadata = None
-    def __init__(self, config=None):
+    def __init__(self, config=None, render=False):
         """
         重新封装下环境
         Args:
@@ -54,7 +54,7 @@ class FootballGym(gym.Env):
             rewards=rewards,
             write_goal_dumps=False,
             write_full_episode_dumps=False,
-            render=False,
+            render=render,
             write_video=False,
             dump_frequency=1,
             logdir=".",
@@ -133,15 +133,15 @@ class FootballCNN(BaseFeaturesExtractor):
     def forward(self, obs):
         return self.linear(self.cnn(obs))
 
-def make_env(config=None, rank=0):
+def make_env(config=None, rank=0, render=False):
     def _init():
-        env = FootballGym(config)
+        env = FootballGym(config, render=render)
         log_file = os.path.join(".", str(rank))
         env = Monitor(env, log_file, allow_early_resets=True)
         return env
     return _init
 
-if __name__ == '__main__':
+def do_train():
     check_env(env=FootballGym(), warn=True)
     scenario_name = "11_vs_11_easy_stochastic"
     n_envs = 1
@@ -173,3 +173,46 @@ if __name__ == '__main__':
 
     total_timesteps = 3001*450
     model.learn(total_timesteps=total_timesteps, callback=eval_callback)
+
+def do_eval():
+    trained_checkpoint = "models/best_model.zip"
+    scenario_name = "11_vs_11_easy_stochastic"
+    eval_env = VecTransposeImage(DummyVecEnv([make_env({"env_name":scenario_name, "rewards":"scoring"}, render=True)]))
+    #模型的配置
+    n_steps = 512
+    policy_kwargs = dict(features_extractor_class=FootballCNN,
+                         features_extractor_kwargs=dict(features_dim=256))
+    model = PPO(CnnPolicy, eval_env,
+                policy_kwargs=policy_kwargs,
+                learning_rate=0.000343,
+                n_steps=n_steps,
+                batch_size=8,
+                n_epochs=2,
+                gamma=0.993,
+                gae_lambda=0.95,
+                clip_range=0.08,
+                ent_coef=0.003,
+                vf_coef=0.5,
+                max_grad_norm=0.64,
+                verbose=1)
+    model.load(trained_checkpoint)
+    #环境重置，方便测试模型
+    obs = eval_env.reset()
+    # 测试模型
+    print(f"开始测试模型效果：")
+    step = 0
+    for i in range(1000):
+        step += 1
+        action, _states = model.predict(obs, deterministic=True)
+        obs, reward, done, info = eval_env.step(action)
+        print(f"循环第{i}次，第{step}个step操作{action}，奖励{reward}")
+        # eval_env.render()
+        if done:
+            print(f"这一个episode足球结束，开始下一个step测试")
+            step = 0
+            obs = eval_env.reset()
+    eval_env.close()
+
+if __name__ == '__main__':
+    # do_train()
+    do_eval()
